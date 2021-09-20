@@ -53,7 +53,7 @@ class Product extends Model
         return $this->belongsTo(Image::class, 'image3', 'id');
     }
 
-    public function imageFouth()
+    public function imageFourth()
     {
         return $this->belongsTo(Image::class, 'image4', 'id');
     }

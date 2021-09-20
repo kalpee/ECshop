@@ -82,7 +82,7 @@ class ImageController extends Controller
     public function edit($id)
     {
         $image =Image::findOrFail($id);
-        return view('owner.images.edit', compact('image'));        return view('owner.shops.edit', compact('shop'));
+        return view('owner.images.edit', compact('image'));
     }
 
     /**
