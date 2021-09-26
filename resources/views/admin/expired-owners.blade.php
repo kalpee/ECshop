@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          期限切れオーナー一覧
+          削除されたオーナー一覧
       </h2>
   </x-slot>
 
@@ -42,18 +42,6 @@
                     </div>
                   </div>
                 </section>
-
-              {{--  エロクアント
-                @foreach ($e_all as $e_owner)
-                  {{ $e_owner->name }}
-                  {{ $e_owner->created_at->diffForHumans() }}
-                @endforeach
-                <br>
-                クエリビルダ
-                @foreach ($q_get as $q_owner)
-                  {{ $q_owner->name }}
-                  {{ Carbon\Carbon::parse($q_owner->created_at)->diffForHumans() }}
-                @endforeach --}}
               </div>
           </div>
       </div>
