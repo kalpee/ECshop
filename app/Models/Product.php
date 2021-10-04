@@ -79,7 +79,6 @@ class Product extends Model
         ->groupBy('product_id')
         ->having('quantity', '>', 1);
 
-
         return $query
         ->joinSub($stocks, 'stock', function($join){
             $join->on('products.id', '=', 'stock.product_id');

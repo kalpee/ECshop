@@ -16,11 +16,7 @@ class ProductRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
+    // 商品情報ルール設定
     public function rules()
     {
         return [

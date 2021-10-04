@@ -20,11 +20,7 @@ class ThanksMail extends Mailable
         $this->user = $user;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
+        // ユーザーへの購入完了メール文表示
     public function build()
     {
         return $this->view('emails.thanks')

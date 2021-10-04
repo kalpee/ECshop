@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Log;
 
 class OwnersController extends Controller
 {
+
+    // ログインユーザー確認処理
     public function __construct()
     {
         $this->middleware('auth:admin');

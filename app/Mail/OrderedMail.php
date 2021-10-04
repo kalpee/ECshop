@@ -20,11 +20,7 @@ class OrderedMail extends Mailable
         $this->user = $user;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
+    // オーナーへの商品購入メール文表示
     public function build()
     {
         return $this->view('emails.ordered')
