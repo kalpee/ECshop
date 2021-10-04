@@ -13,13 +13,13 @@ use App\Services\ImageService;
 
 class ShopController extends Controller
 {
+
+    // ログインユーザー確認処理
     public function __construct()
     {
         $this->middleware('auth:owners');
 
         $this->middleware(function ($request, $next) {
-            // dd($request->route()->parameter('shop')); //文字列
-            // dd(Auth::id()); //数字
 
             $id = $request->route()->parameter('shop'); //shopのid取得
             if(!is_null($id)) { //null判定
@@ -30,26 +30,29 @@ class ShopController extends Controller
                     abort(404); //404画面表示
                 }
             }
+
             return $next($request);
         });
     }
     
+    // 店舗画面表示
     public function index()
     {
-        // $ownerId = Auth::id();
         $shops = Shop::where('owner_id', Auth::id())->get();
 
         return view('owner.shops.index',
         compact('shops'));
     }
 
+    // 店舗情報編集画面表示
     public function edit($id)
     {
         $shop =Shop::findOrFail($id);
-        // dd(Shop::findOrFail($id));
+
         return view('owner.shops.edit', compact('shop'));
     }
 
+    // 店舗情報編集処理
     public function update(UploadImageRequest $request, $id)
     {
         $request->validate([

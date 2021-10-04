@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 class ImageController extends Controller
 {
     
+    // 商品画像一覧
     public function index()
     {
         $images = Image::where('owner_id', Auth::id())
@@ -24,7 +25,8 @@ class ImageController extends Controller
         return view('owner.images.index',
         compact('images'));
     }
-
+    
+    // ログインユーザー確認処理
     public function __construct()
     {
         $this->middleware('auth:owners');
@@ -43,23 +45,13 @@ class ImageController extends Controller
         });
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // 商品画像登録画面表示
     public function create()
     {
         return view('owner.images.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // 商品画像登録処理
     public function store(UploadImageRequest $request)
     {
         $imageFiles = $request->file('files');
@@ -79,19 +71,14 @@ class ImageController extends Controller
         'status' => 'info']);
     }
 
+    // 商品画像編集画面表示
     public function edit($id)
     {
         $image =Image::findOrFail($id);
         return view('owner.images.edit', compact('image'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // 商品画像編集処理
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -108,12 +95,7 @@ class ImageController extends Controller
         'status' => 'info']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // 商品画像物理処理
     public function destroy($id)
     {
         $image = Image::findOrFail($id);

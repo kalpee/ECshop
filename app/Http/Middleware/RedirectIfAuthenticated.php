@@ -13,14 +13,7 @@ class RedirectIfAuthenticated
     private const GUARD_OWNER = 'owners';
     private const GUARD_ADMIN = 'admin';
 
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  ...$guards
-     * @return mixed
-     */
+    // ログイン済みユーザーがアクセスしてたらリダイレクト処理
     public function handle(Request $request, Closure $next, ...$guards)
     {
         if(Auth::guard(self::GUARD_USER)->check() && $request->routeIs('user.*')){

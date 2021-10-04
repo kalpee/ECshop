@@ -25,14 +25,9 @@ class SendThanksMail implements ShouldQueue
         $this->user = $user;
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
+    // ユーザーへの購入完了メール送信処理
     public function handle()
     {
-        // Mail::to('test@example.com')->send(new TestMail());
         Mail::to($this->user)
         ->send(new ThanksMail($this->products, $this->user));
     }

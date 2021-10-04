@@ -24,11 +24,7 @@ class SendOrderedMail implements ShouldQueue
         $this->user = $user;
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
+    // オーナーへの商品購入メール送信処理
     public function handle()
     {
         Mail::to($this->product['email'])

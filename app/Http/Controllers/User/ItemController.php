@@ -15,6 +15,7 @@ use App\Jobs\SendThanksMail;
 
 class ItemController extends Controller
 {
+    // ログインユーザー確認処理
     public function __construct()
     {
         $this->middleware('auth:users');
@@ -32,15 +33,9 @@ class ItemController extends Controller
         });
     }
 
+    // 商品一覧表示画面
     public function index(Request $request)
     {
-        // 同期的に送信
-        // Mail::to('test@example.com')
-        // ->send(new TestMail());
-
-        // 非同期に送信
-        // SendThanksMail::dispatch();
-
         $categories = PrimaryCategory::with('secondary')
         ->get();
         $products = Product::availableItems()
@@ -52,6 +47,7 @@ class ItemController extends Controller
         return view('user.index', compact('products', 'categories'));
     }
 
+    // 商品詳細表示画面
     public function show($id)
     {
         $product = Product::findOrFail($id);

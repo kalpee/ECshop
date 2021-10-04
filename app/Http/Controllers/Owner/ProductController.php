@@ -17,6 +17,7 @@ use App\Http\Requests\ProductRequest;
 class ProductController extends Controller
 {
 
+    // ログインユーザー確認処理
     public function __construct()
     {
         $this->middleware('auth:owners');
@@ -35,30 +36,17 @@ class ProductController extends Controller
         });
     }
 
+    // 商品詳細画面表示
     public function index()
     {
-        // $products = Owner::findOrFail(Auth::id())->shop->product;
-
         $ownerInfo = Owner::with('shop.product.imageFirst')
         ->where('id', Auth::id())->get();
-
-        // dd($ownerInfo);
-        // foreach($ownerInfo as $owner){
-        //     // dd($owner->shop->product);
-        //     foreach($owner->shop->product as $product){
-        //         dd($product->imageFirst->filename);
-        //     }
-        // }
 
         return view('owner.products.index',
         compact('ownerInfo'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // 商品登録画面表示
     public function create()
     {
         $shops = Shop::where('owner_id', Auth::id())
@@ -77,12 +65,7 @@ class ProductController extends Controller
         compact('shops', 'images', 'categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // 商品登録処理
     public function store(ProductRequest $request)
     {
 
@@ -119,12 +102,7 @@ class ProductController extends Controller
         'status' => 'info']);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // 商品情報編集画面表示
     public function edit($id)
     {
         $product = Product::findOrFail($id);
@@ -147,6 +125,7 @@ class ProductController extends Controller
         compact('product', 'quantity', 'shops', 'images', 'categories'));
     }
 
+    // 商品情報編集処理
     public function update(ProductRequest $request, $id)
     {
         $request->validate([
@@ -203,14 +182,7 @@ class ProductController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * 
-     * 
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // 商品削除物理処理
     public function destroy($id)
     {
         Product::findOrFail($id)->delete();

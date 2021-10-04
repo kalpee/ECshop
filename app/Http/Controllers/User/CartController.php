@@ -14,21 +14,23 @@ use App\Services\CartService;
 
 class CartController extends Controller
 {
+
+    // カート画面表示
     public function index()
     {
         $user = User::findOrFail(Auth::id());
         $products = $user->products;
         $totalPrice = 0;
 
-        foreach ($products as $product) {
+        foreach ($products as $product){
             $totalPrice += $product->price * $product->pivot->quantity;
         }
-
 
         return view('user.cart',
         compact('products', 'totalPrice'));
     }
 
+    // カート追加処理
     public function add(Request $request)
     {
         $itemInCart = Cart::where('product_id', $request->product_id)
@@ -49,6 +51,7 @@ class CartController extends Controller
         return redirect()->route('user.cart.index');
     }
 
+    // カート内商品物理削除処理
     public function delete($id)
     {
         Cart::where('product_id', $id)
@@ -58,6 +61,7 @@ class CartController extends Controller
         return redirect()->route('user.cart.index');
     }
 
+    // 商品購入処理(stripe)
     public function checkout()
     {
 
@@ -83,7 +87,7 @@ class CartController extends Controller
             }
         }
 
-        foreach ($products as $product) {
+        foreach ($products as $product){
             Stock::create([
                 'product_id' => $product->id,
                 'type' => \Constant::PRODUCT_LIST['reduce'],
@@ -104,6 +108,7 @@ class CartController extends Controller
         return redirect($session->url, 303);
     }
 
+    // 決済成功時の処理
     public function success()
     {
 
@@ -112,8 +117,7 @@ class CartController extends Controller
         $user = User::findOrFail(Auth::id());
 
         SendThanksMail::dispatch($products, $user);
-        foreach ($products as $product)
-        {
+        foreach ($products as $product){
             SendOrderedMail::dispatch($product, $user);
         }
 
@@ -122,6 +126,7 @@ class CartController extends Controller
         return redirect()->route('user.items.index');
     }
 
+    // 決済中に購入キャンセルした時の処理
     public function cancel()
     {
         $user = User::findOrFail(Auth::id());
@@ -136,5 +141,4 @@ class CartController extends Controller
 
         return redirect()->route('user.cart.index');
     }
-
 }

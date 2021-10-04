@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Owner; // Eloquent エロクアント
+use App\Models\Owner;
 use App\Models\Shop;
-use Illuminate\Support\Facades\DB; // QueryBuilder クエリビルダ
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Throwable;
@@ -15,11 +15,14 @@ use Illuminate\Support\Facades\Log;
 
 class OwnersController extends Controller
 {
+
+    // ログインユーザー確認処理
     public function __construct()
     {
         $this->middleware('auth:admin');
     } 
 
+    // オーナー一覧表示
     public function index()
     {
         $owners = Owner::select('id', 'name', 'email', 'created_at')
@@ -29,25 +32,16 @@ class OwnersController extends Controller
         compact('owners'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // オーナー登録画面表示
     public function create()
     {
         return view('admin.owners.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // オーナー、店舗情報登録処理
     public function store(Request $request)
     {
-        //$request->name;
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:owners',
@@ -55,7 +49,8 @@ class OwnersController extends Controller
         ]);
 
         try{
-            DB::transaction(function () use($request) {
+            DB::transaction(function() use($request)
+            {
                 $owner = Owner::create([
                     'name' => $request->name,
                     'email' => $request->email,
@@ -81,37 +76,14 @@ class OwnersController extends Controller
         'status' => 'info']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // オーナー情報編集画面
     public function edit($id)
     {
         $owner = Owner::findOrFail($id);
-        // dd($owner);
         return view('admin.owners.edit', compact('owner'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // オーナー情報更新処理
     public function update(Request $request, $id)
     {
         $owner = Owner::findOrFail($id);
@@ -126,12 +98,7 @@ class OwnersController extends Controller
         'status' => 'info']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // オーナー情報論理削除処理
     public function destroy($id)
     {
         Owner::findOrFail($id)->delete(); //ソフトデリート
@@ -142,12 +109,16 @@ class OwnersController extends Controller
         'status' => 'alert']);
     }
 
-    public function expiredOwnerIndex(){
+    // ゴミ箱にあるオーナー情報取得処理
+    public function expiredOwnerIndex()
+    {
         $expiredOwners = Owner::onlyTrashed()->get();
         return view('admin.expired-owners', compact('expiredOwners'));
     }
-    
-    public function expiredOwnerDestroy($id){
+
+    // オーナー情報物理削除処理
+    public function expiredOwnerDestroy($id)
+    {
         Owner::onlyTrashed()->findOrFail($id)->forceDelete();
         return redirect()->route('admin.expired-owners.index'); 
     }

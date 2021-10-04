@@ -16,25 +16,22 @@ class UploadImageRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
+    // 画像アップロード設定
     public function rules()
     {
         return [
-            'image' => 'image|mimes:jpg,jpeg,png|max:2048',
-            'files.*.image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'image' => 'image|mimes:jpg,jpeg,png|max:8192',
+            'files.*.image' => 'required|image|mimes:jpg,jpeg,png|max:8192',
         ];
     }
 
+    // アップロードエラーメッセージ設定
     public function messages()
     {        
         return [
             'image' => '指定されたファイルが画像ではありません。',
             'mines' => '指定された拡張子（jpg/jpeg/png）ではありません。',
-            'max' => 'ファイルサイズは2MB以内にしてください。',
+            'max' => 'ファイルサイズは8MB以内にしてください。',
             ];
         }
     }
