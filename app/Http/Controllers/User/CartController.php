@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
 
-    // カート画面表示
+/**
+ * カート画面表示
+ * 
+ * @return Illuminate\Support\Facades\View
+ */
     public function index()
     {
         $user = User::findOrFail(Auth::id());
@@ -30,7 +34,12 @@ class CartController extends Controller
         compact('products', 'totalPrice'));
     }
 
-    // カート追加処理
+/**
+ * カート追加処理
+ * 
+ * @param Request $request
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function add(Request $request)
     {
         $itemInCart = Cart::where('product_id', $request->product_id)
@@ -51,7 +60,12 @@ class CartController extends Controller
         return redirect()->route('user.cart.index');
     }
 
-    // カート内商品物理削除処理
+/**
+ * カート内商品物理削除処理
+ * 
+ * @param integer $id
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function delete($id)
     {
         Cart::where('product_id', $id)
@@ -61,7 +75,11 @@ class CartController extends Controller
         return redirect()->route('user.cart.index');
     }
 
-    // 商品購入処理(stripe)
+/**
+ * 商品購入処理(stripe)
+ * 
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function checkout()
     {
 
@@ -108,7 +126,11 @@ class CartController extends Controller
         return redirect($session->url, 303);
     }
 
-    // 決済成功時の処理
+/**
+ * 決済成功時の処理
+ * 
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function success()
     {
 
@@ -126,7 +148,11 @@ class CartController extends Controller
         return redirect()->route('user.items.index');
     }
 
-    // 決済中に購入キャンセルした時の処理
+/**
+ * 決済中に購入キャンセルした時の処理
+ * 
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function cancel()
     {
         $user = User::findOrFail(Auth::id());

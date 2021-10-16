@@ -15,13 +15,20 @@ use Throwable;
 class OwnersController extends Controller
 {
 
-    // ログインユーザー確認処理
+    
+/**
+ * ログインユーザー確認処理
+ */
     public function __construct()
     {
         $this->middleware('auth:admin');
     } 
 
-    // オーナー一覧表示
+/**
+ * オーナー一覧表示
+ * 
+ * @return Illuminate\Support\Facades\View
+ */
     public function index()
     {
         $owners = Owner::select('id', 'name', 'email', 'created_at')
@@ -31,13 +38,22 @@ class OwnersController extends Controller
         compact('owners'));
     }
 
-    // オーナー登録画面表示
+/**
+ * オーナー登録画面表示
+ * 
+ * @return Illuminate\Support\Facades\View
+ */
     public function create()
     {
         return view('admin.owners.create');
     }
 
-    // オーナー、店舗情報登録処理
+/**
+ * オーナー、店舗情報登録処理
+ * 
+ * @param Request $request
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function store(Request $request)
     {
 
@@ -75,14 +91,25 @@ class OwnersController extends Controller
         'status' => 'info']);
     }
 
-    // オーナー情報編集画面
+/**
+ * オーナー情報編集画面
+ * 
+ * @param integer $id
+ * @return Illuminate\Support\Facades\View
+ */
     public function edit($id)
     {
         $owner = Owner::findOrFail($id);
         return view('admin.owners.edit', compact('owner'));
     }
 
-    // オーナー情報更新処理
+/**
+ * オーナー情報更新処理
+ * 
+ * @param Request $request
+ * @param integer $id
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function update(Request $request, $id)
     {
         $owner = Owner::findOrFail($id);
@@ -97,7 +124,12 @@ class OwnersController extends Controller
         'status' => 'info']);
     }
 
-    // オーナー情報論理削除処理
+/**
+ * オーナー情報論理削除処理
+ * 
+ * @param integer $id
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function destroy($id)
     {
         Owner::findOrFail($id)->delete(); //ソフトデリート
@@ -108,14 +140,23 @@ class OwnersController extends Controller
         'status' => 'alert']);
     }
 
-    // ゴミ箱にあるオーナー情報取得処理
+/**
+ * ゴミ箱にあるオーナー情報取得処理
+ * 
+ * @return Illuminate\Support\Facades\View
+ */
     public function expiredOwnerIndex()
     {
         $expiredOwners = Owner::onlyTrashed()->get();
         return view('admin.expired-owners', compact('expiredOwners'));
     }
 
-    // オーナー情報物理削除処理
+/**
+ * オーナー情報物理削除処理
+ * 
+ * @param integer $id
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function expiredOwnerDestroy($id)
     {
         Owner::onlyTrashed()->findOrFail($id)->forceDelete();

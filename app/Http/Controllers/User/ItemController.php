@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Mail;
 
 class ItemController extends Controller
 {
-    // ログインユーザー確認処理
+/**
+ * ログインユーザー確認処理
+ * 
+ */
     public function __construct()
     {
         $this->middleware('auth:users');
@@ -32,7 +35,12 @@ class ItemController extends Controller
         });
     }
 
-    // 商品一覧表示画面
+/**
+ * 商品一覧表示画面
+ * 
+ * @param Request $request
+ * @return Illuminate\Support\Facades\View
+ */
     public function index(Request $request)
     {
         $categories = PrimaryCategory::with('secondary')
@@ -46,7 +54,12 @@ class ItemController extends Controller
         return view('user.index', compact('products', 'categories'));
     }
 
-    // 商品詳細表示画面
+/**
+ * 商品詳細表示画面
+ * 
+ * @param integer $id
+ * @return Illuminate\Support\Facades\View
+ */
     public function show($id)
     {
         $product = Product::findOrFail($id);

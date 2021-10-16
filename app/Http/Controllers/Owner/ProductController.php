@@ -17,7 +17,10 @@ use Illuminate\Support\Facades\DB;
 class ProductController extends Controller
 {
 
-    // ログインユーザー確認処理
+/**
+ * ログインユーザー確認処理
+ * 
+ */
     public function __construct()
     {
         $this->middleware('auth:owners');
@@ -36,7 +39,11 @@ class ProductController extends Controller
         });
     }
 
-    // 商品詳細画面表示
+    /**
+ * 商品詳細画面表示
+ * 
+ * @return Illuminate\Support\Facades\View
+ */
     public function index()
     {
         $ownerInfo = Owner::with('shop.product.imageFirst')
@@ -46,7 +53,11 @@ class ProductController extends Controller
         compact('ownerInfo'));
     }
 
-    // 商品登録画面表示
+/**
+ * 商品登録画面表示
+ * 
+ * @return Illuminate\Support\Facades\View
+ */
     public function create()
     {
         $shops = Shop::where('owner_id', Auth::id())
@@ -65,7 +76,12 @@ class ProductController extends Controller
         compact('shops', 'images', 'categories'));
     }
 
-    // 商品登録処理
+/**
+ * 商品登録処理
+ * 
+ * @param ProductRequest $request
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function store(ProductRequest $request)
     {
 
@@ -102,7 +118,12 @@ class ProductController extends Controller
         'status' => 'info']);
     }
 
-    // 商品情報編集画面表示
+/**
+ * 商品情報編集画面表示
+ * 
+ * @param integer $id
+ * @return Illuminate\Support\Facades\View
+ */
     public function edit($id)
     {
         $product = Product::findOrFail($id);
@@ -125,7 +146,13 @@ class ProductController extends Controller
         compact('product', 'quantity', 'shops', 'images', 'categories'));
     }
 
-    // 商品情報編集処理
+/**
+ * 商品情報編集処理
+ * 
+ * @param ProductRequest $request
+ * @param integer $id
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function update(ProductRequest $request, $id)
     {
         $request->validate([
@@ -182,7 +209,12 @@ class ProductController extends Controller
         }
     }
 
-    // 商品削除物理処理
+/**
+ * 商品削除物理処理
+ * 
+ * @param integer $id
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function destroy($id)
     {
         Product::findOrFail($id)->delete();
