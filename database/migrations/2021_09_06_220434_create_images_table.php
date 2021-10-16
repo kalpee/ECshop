@@ -14,13 +14,13 @@ class CreateImagesTable extends Migration
     public function up()
     {
         Schema::create('images', function (Blueprint $table) {
-            $table->id();
+            $table->id()->comment('ID');
             $table->foreignId('owner_id')
             ->constrained()
             ->onUpdata('cascade')
-            ->onDelete('cascade');
-            $table->string('filename');
-            $table->string('title')->nullable();
+            ->onDelete('cascade')->comment('オーナーIDに紐づけ');;
+            $table->string('filename')->comment('画像ファイル名');
+            $table->string('title')->nullable()->comment('タイトル');
             $table->timestamps();
         });
     }

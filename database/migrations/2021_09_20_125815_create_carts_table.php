@@ -14,18 +14,17 @@ class CreateCartsTable extends Migration
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->id();
+            $table->id()->comment('ID');
             $table->foreignId('user_id')
             ->constrained()
             ->onUpdata('cascade')
-            ->onDelete('cascade');
+            ->onDelete('cascade')->comment('ユーザーIDと紐付け');
             $table->foreignId('product_id')
             ->constrained()
             ->onUpdata('cascade')
-            ->onDelete('cascade');
-            $table->integer('quantity');
+            ->onDelete('cascade')->comment('オーナーIDと紐付け');
+            $table->integer('quantity')->comment('数量');
             $table->timestamps();
-            
         });
     }
 

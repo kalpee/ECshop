@@ -14,13 +14,13 @@ class CreateStocksTable extends Migration
     public function up()
     {
         Schema::create('t_stocks', function (Blueprint $table) {
-            $table->id();
+            $table->id()->comment('ID');
             $table->foreignId('product_id')
             ->constrained()
             ->onUpdata('cascade')
-            ->onDelete('cascade');
-            $table->tinyInteger('type');
-            $table->integer('quantity');
+            ->onDelete('cascade')->comment('プロダクトID紐付け');
+            $table->tinyInteger('type')->comment('入庫出庫');
+            $table->integer('quantity')->comment('数量');
             $table->timestamps();
         });
     }

@@ -14,18 +14,18 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         Schema::create('primary_categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('sort_order');
+            $table->id()->comment('ID');
+            $table->string('name')->comment('大カテゴリー名');
+            $table->integer('sort_order')->comment('並び順');
             $table->timestamps();
         });
 
         Schema::create('secondary_categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('sort_order');
+            $table->id()->comment('ID');
+            $table->string('name')->comment('小カテゴリー名');
+            $table->integer('sort_order')->comment('並び順');
             $table->foreignId('primary_category_id')
-            ->constrained();
+            ->constrained()->comment('大カテゴリーIDと紐付け');
             $table->timestamps();
         });
     }
