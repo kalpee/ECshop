@@ -16,9 +16,9 @@ class CreateShopsTable extends Migration
         Schema::create('shops', function (Blueprint $table) {
             $table->id()->comment('ID');
             $table->foreignId('owner_id')
-            ->constrained()
-            ->onUpdata('cascade')
-            ->onDelete('cascade')->comment('オーナーIDに紐づけ');
+                ->constrained()
+                ->onUpdata('cascade')
+                ->onDelete('cascade')->comment('オーナーIDに紐づけ');
             $table->string('name')->comment('店舗名');
             $table->text('information')->comment('説明文');
             $table->string('filename')->comment('画像ファイル名');
