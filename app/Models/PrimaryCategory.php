@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\SecondaryCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\SecondaryCategory;
 
 class PrimaryCategory extends Model
 {

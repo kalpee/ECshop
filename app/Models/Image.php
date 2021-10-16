@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Owner;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Owner;
 
 class Image extends Model
 {

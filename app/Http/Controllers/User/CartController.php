@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Jobs\SendThanksMail;
+use App\Jobs\SendOrderedMail;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Stock;
-use Illuminate\Support\Facades\Auth;
-use App\Jobs\SendThanksMail;
-use App\Jobs\SendOrderedMail;
 use App\Services\CartService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {

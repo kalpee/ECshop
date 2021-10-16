@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\Image;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Owner;
 use App\Models\Product;
 use App\Models\PrimaryCategory;
-use App\Models\Owner;
 use App\Models\Shop;
 use App\Models\Stock;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
