@@ -16,7 +16,8 @@ class CreatePasswordResetsTable extends Migration
         Schema::create('password_resets', function (Blueprint $table) {
             $table->string('email')->index()->comment('メールアドレス');
             $table->string('token')->comment('トークン');
-            $table->timestamp('created_at')->nullable()->comment('作成日時（null可）');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'))->nullable()->comment('作成年月日');
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))->comment('更新年月日');
         });
     }
 

@@ -26,7 +26,8 @@ class CreateCategoriesTable extends Migration
             $table->integer('sort_order')->comment('並び順');
             $table->foreignId('primary_category_id')
             ->constrained()->comment('大カテゴリーIDと紐付け');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'))->comment('作成年月日');
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))->comment('更新年月日');
         });
     }
 

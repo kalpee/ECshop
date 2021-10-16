@@ -21,7 +21,8 @@ class CreateImagesTable extends Migration
             ->onDelete('cascade')->comment('オーナーIDに紐づけ');;
             $table->string('filename')->comment('画像ファイル名');
             $table->string('title')->nullable()->comment('タイトル');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'))->comment('作成年月日');
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))->comment('更新年月日');
         });
     }
 

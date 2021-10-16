@@ -20,9 +20,9 @@ class CreateOwnersTable extends Migration
             $table->timestamp('email_verified_at')->nullable()->comment('メール確認日時');
             $table->string('password')->comment('パスワード');
             $table->rememberToken()->comment('ログイン情報記憶トークン');
-            $table->timestamps();
             $table->softDeletes()->comment('削除日時');
-
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'))->comment('作成年月日');
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))->comment('更新年月日');
         });
     }
 

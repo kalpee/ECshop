@@ -24,7 +24,8 @@ class CreateCartsTable extends Migration
             ->onUpdata('cascade')
             ->onDelete('cascade')->comment('オーナーIDと紐付け');
             $table->integer('quantity')->comment('数量');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'))->comment('作成年月日');
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))->comment('更新年月日');
         });
     }
 

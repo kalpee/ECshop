@@ -23,7 +23,8 @@ class CreateShopsTable extends Migration
             $table->text('information')->comment('説明文');
             $table->string('filename')->comment('画像ファイル名');
             $table->boolean('is_selling')->comment('販売/停止');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'))->comment('作成年月日');
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))->comment('更新年月日');
         });
     }
 
