@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Storage;
 use InterventionImage;
+use Illuminate\Support\Facades\Storage;
 
 class ImageService
 {

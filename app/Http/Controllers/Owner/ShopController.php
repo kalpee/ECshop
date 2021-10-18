@@ -3,18 +3,22 @@
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UploadImageRequest;
+use App\Models\Shop;use App\Services\ImageService;
+use InterventionImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Shop;
 use Illuminate\Support\Facades\Storage;
-use InterventionImage; 
-use App\Http\Requests\UploadImageRequest;
-use App\Services\ImageService;
+
+
 
 class ShopController extends Controller
 {
 
-    // ログインユーザー確認処理
+/**
+ * ログインユーザー確認処理
+ * 
+ */
     public function __construct()
     {
         $this->middleware('auth:owners');
@@ -35,7 +39,11 @@ class ShopController extends Controller
         });
     }
     
-    // 店舗画面表示
+/**
+ * 店舗画面表示
+ * 
+ * @return Illuminate\Support\Facades\View
+ */
     public function index()
     {
         $shops = Shop::where('owner_id', Auth::id())->get();
@@ -44,7 +52,12 @@ class ShopController extends Controller
         compact('shops'));
     }
 
-    // 店舗情報編集画面表示
+/**
+ * 店舗情報編集画面表示
+ * 
+ * @param integer $id
+ * @return Illuminate\Support\Facades\View
+ */
     public function edit($id)
     {
         $shop =Shop::findOrFail($id);
@@ -52,7 +65,13 @@ class ShopController extends Controller
         return view('owner.shops.edit', compact('shop'));
     }
 
-    // 店舗情報編集処理
+/**
+ * 店舗情報編集処理
+ * 
+ * @param UploadImageRequest $request
+ * @param integer $id
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function update(UploadImageRequest $request, $id)
     {
         $request->validate([

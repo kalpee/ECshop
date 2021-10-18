@@ -3,19 +3,23 @@
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\UploadImageRequest;
 use App\Models\Image;
 use App\Models\Product;
-use App\Http\Requests\UploadImageRequest;
-use Illuminate\Support\Facades\Auth;
 use App\Services\ImageService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 
 class ImageController extends Controller
 {
     
-    // 商品画像一覧
+/**
+ * 商品画像一覧
+ * 
+ * @return Illuminate\Support\Facades\View
+ */
     public function index()
     {
         $images = Image::where('owner_id', Auth::id())
@@ -26,7 +30,9 @@ class ImageController extends Controller
         compact('images'));
     }
     
-    // ログインユーザー確認処理
+/**
+ * ログインユーザー確認処理
+ */
     public function __construct()
     {
         $this->middleware('auth:owners');
@@ -45,13 +51,22 @@ class ImageController extends Controller
         });
     }
 
-    // 商品画像登録画面表示
+/**
+ * 商品画像登録画面表示
+ * 
+ * @return Illuminate\Support\Facades\View
+ */
     public function create()
     {
         return view('owner.images.create');
     }
 
-    // 商品画像登録処理
+/**
+ * 商品画像登録処理
+ * 
+ * @param UploadImageRequest $request
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function store(UploadImageRequest $request)
     {
         $imageFiles = $request->file('files');
@@ -71,14 +86,25 @@ class ImageController extends Controller
         'status' => 'info']);
     }
 
-    // 商品画像編集画面表示
+/**
+ * 商品画像編集画面表示
+ * 
+ * @param integer $id
+ * @return Illuminate\Support\Facades\View
+ */
     public function edit($id)
     {
         $image =Image::findOrFail($id);
         return view('owner.images.edit', compact('image'));
     }
 
-    // 商品画像編集処理
+/**
+ * 商品画像編集処理
+ * 
+ * @param Request $request
+ * @param integer $id
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -95,7 +121,12 @@ class ImageController extends Controller
         'status' => 'info']);
     }
 
-    // 商品画像物理処理
+/**
+ * 商品画像物理処理
+ * 
+ * @param integer $id
+ * @return Illuminate\Support\Facades\Redirect
+ */
     public function destroy($id)
     {
         $image = Image::findOrFail($id);

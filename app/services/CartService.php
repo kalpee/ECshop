@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Product;
 
 class CartService
 {

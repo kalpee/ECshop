@@ -14,13 +14,13 @@ class CreateJobsTable extends Migration
     public function up()
     {
         Schema::create('jobs', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('queue')->index();
-            $table->longText('payload');
-            $table->unsignedTinyInteger('attempts');
-            $table->unsignedInteger('reserved_at')->nullable();
-            $table->unsignedInteger('available_at');
-            $table->unsignedInteger('created_at');
+            $table->bigIncrements('id')->comment('ID');
+            $table->string('queue')->index()->comment('キュー');
+            $table->longText('payload')->comment('情報保存');
+            $table->unsignedTinyInteger('attempts')->comment('attempts');
+            $table->unsignedInteger('reserved_at')->nullable()->comment('reserved_at');
+            $table->unsignedInteger('available_at')->comment('available_at');
+            $table->unsignedInteger('created_at')->comment('作成日時');
         });
     }
 
