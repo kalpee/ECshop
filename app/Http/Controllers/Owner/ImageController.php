@@ -17,6 +17,7 @@ class ImageController extends Controller
     
 /**
  * 商品画像一覧
+ * 
  * @return Illuminate\Support\Facades\View
  */
     public function index()
@@ -31,7 +32,6 @@ class ImageController extends Controller
     
 /**
  * ログインユーザー確認処理
- * 
  */
     public function __construct()
     {
@@ -53,6 +53,7 @@ class ImageController extends Controller
 
 /**
  * 商品画像登録画面表示
+ * 
  * @return Illuminate\Support\Facades\View
  */
     public function create()

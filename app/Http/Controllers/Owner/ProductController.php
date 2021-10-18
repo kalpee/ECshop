@@ -19,7 +19,6 @@ class ProductController extends Controller
 
 /**
  * ログインユーザー確認処理
- * 
  */
     public function __construct()
     {
