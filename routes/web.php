@@ -6,6 +6,8 @@ use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\ItemController;
 use App\Http\Controllers\User\TermsController;
 use App\Http\Controllers\User\MyPageController;
+use App\Http\Controllers\User\FaqController;
+use App\Http\Controllers\User\TokushohoController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,6 +32,8 @@ Route::middleware('auth:users')->group(function(){
     Route::get('show/{item}', [ItemController::class, 'show'])->name('items.show');
     Route::get('terms', [TermsController::class, 'index'])->name('terms.index');
     Route::get('mypage', [MyPageController::class, 'index'])->name('mypage.index');
+    Route::get('faq', [FaqController::class, 'index'])->name('faq.index');
+    Route::get('tokushoho', [TokushohoController::class, 'index'])->name('tokushoho.index');
 });
 
 Route::prefix('cart')->middleware('auth:users')->group(function(){

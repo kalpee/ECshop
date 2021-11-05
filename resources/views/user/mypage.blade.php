@@ -20,8 +20,16 @@
                     </x-slot>
                     <x-slot name="content">
                             <x-dropdown-link :href="route('user.terms.index')"
-                            :active="request()->routeIs('user.cart.index')">
+                            :active="request()->routeIs('user.terms.index')">
                                 利用規約
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('user.faq.index')"
+                            :active="request()->routeIs('user.faq.index')">
+                                よくある質問
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('user.tokushoho.index')"
+                            :active="request()->routeIs('user.tokushoho.index')">
+                                特定商取引法に基づく表記
                             </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
