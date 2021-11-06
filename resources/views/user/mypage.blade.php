@@ -27,6 +27,10 @@
                             :active="request()->routeIs('user.faq.index')">
                                 よくある質問
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('user.privacy.index')"
+                            :active="request()->routeIs('user.privacy.index')">
+                                プライバシーポリシー
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('user.tokushoho.index')"
                             :active="request()->routeIs('user.tokushoho.index')">
                                 特定商取引法に基づく表記
@@ -63,14 +67,6 @@
                                 </dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                     <div>{{ Auth::user()->email }}</div>
-                                </dd>
-                            </div>
-                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt class="text-sm font-medium text-gray-500">
-                                    パスワード
-                                </dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <div>{{ Auth::user()->password }}</div>
                                 </dd>
                             </div>
                         </dl>
