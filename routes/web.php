@@ -3,6 +3,7 @@
 use App\Http\Controllers\ComponentTestController;
 use App\Http\Controllers\LifeCycleTestController;
 use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\ContactController;
 use App\Http\Controllers\User\FaqController;
 use App\Http\Controllers\User\ItemController;
 use App\Http\Controllers\User\MyPageController;
@@ -10,7 +11,7 @@ use App\Http\Controllers\User\PrivacyController;
 use App\Http\Controllers\User\TermsController;
 use App\Http\Controllers\User\TokushohoController;
 use Illuminate\Support\Facades\Route;
-
+use Symfony\Component\Routing\Annotation\Route as AnnotationRoute;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,12 @@ Route::prefix('cart')->middleware('auth:users')->group(function(){
     Route::get('checkout', [CartController::class, 'checkout'])->name('cart.checkout');
     Route::get('success', [CartController::class, 'success'])->name('cart.success');
     Route::get('cancel', [CartController::class, 'cancel'])->name('cart.cancel');
+});
+
+Route::prefix('contact')->middleware('auth:users')->group(function(){
+    Route::get('/', [ContactController::class, 'index'])->name('contact.index');
+    Route::post('confirm', [ContactController::class, 'confirm'])->name('contact.confirm');
+    Route::post('thanks', [ContactController::class, 'send'])->name('contact.send');
 });
 
 require __DIR__.'/auth.php';
