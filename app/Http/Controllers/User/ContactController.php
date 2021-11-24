@@ -58,24 +58,10 @@ class ContactController extends Controller
             'contact'  => 'required',
         ]);
 
-        $action = $request->input('action');
-        
-        $inputs = $request->except('action');
-        dd($inputs);
+        $inputs = $request->all();
 
-
-        if($action !== 'submit'){
-            return redirect()
-                ->route('user.contact.index')
-                ->withInput($inputs);
-
-        } else {
-            Mail::to($inputs['email'])->send(new ContactSendmail($inputs));
-
-            $request->session()->regenerateToken();
-
-            return view('user.contact.thanks');
-            
-        }
+        Mail::to($inputs['email'])->send(new ContactSendmail($inputs));
+        $request->session()->regenerateToken();
+        return view('user.contact.thanks');
     }
 }
