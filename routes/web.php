@@ -34,9 +34,12 @@ Route::middleware('auth:users')->group(function(){
     Route::get('show/{item}', [ItemController::class, 'show'])->name('items.show');
     Route::get('terms', [TermsController::class, 'index'])->name('terms.index');
     Route::get('mypage', [MyPageController::class, 'index'])->name('mypage.index');
+    Route::post('destroy',[MyPageController::class, 'destroy'])->name('mypage.destroy');
+    Route::get('delete_confirm',[MyPageController::class, 'delete_confirm'])->name('mypage.delete_confirm');
     Route::get('faq', [FaqController::class, 'index'])->name('faq.index');
     Route::get('tokushoho', [TokushohoController::class, 'index'])->name('tokushoho.index');
     Route::get('privacy', [PrivacyController::class, 'index'])->name('privacy.index');
+
 });
 
 Route::prefix('cart')->middleware('auth:users')->group(function(){

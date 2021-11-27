@@ -27,6 +27,10 @@
                             :active="request()->routeIs('user.faq.index')">
                                 よくある質問
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('user.contact.index')"
+                            :active="request()->routeIs('user.contact.index')">
+                                お問い合わせ
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('user.privacy.index')"
                             :active="request()->routeIs('user.privacy.index')">
                                 プライバシーポリシー
@@ -73,7 +77,10 @@
                     </div>
                 </div>
             </div>
+            <x-button class="my-5" type="button" onclick="location.href='{{ route('user.mypage.delete_confirm')}}'">
+                {{ __('退会はこちらから') }}
+            </x-button>
         </div>
     </div>
-    </x-app-layout>
-    
+</x-app-layout>
+
