@@ -7,7 +7,6 @@ use App\Mail\ContactSendmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-
 class ContactController extends Controller
 {
 
@@ -38,9 +37,7 @@ class ContactController extends Controller
 
         $inputs = $request->all();
 
-
-        return view('user.contact.confirm',
-        compact('inputs'));
+        return view('user.contact.confirm',compact('inputs'));
     }
 
 /**

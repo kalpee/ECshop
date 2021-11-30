@@ -16,7 +16,6 @@ class MypageController extends Controller {
      * 
      * @return Illuminate\Support\Facades\View
      */
-
     public function index() 
     {
         return view('user.mypage');
@@ -27,15 +26,14 @@ class MypageController extends Controller {
      * 
      * @return Illuminate\Support\Facades\Redirect
      */
-
     public function destroy()
     {
         User::findOrFail(Auth::id())->delete();
 
         return redirect()
-        ->route('user.login')
-        ->with([
-            'status' => '退会完了しました。',
+            ->route('user.login')
+            ->with([
+                'status' => '退会完了しました。',
         ]);
     }
 
@@ -44,7 +42,6 @@ class MypageController extends Controller {
      * 
      * @return Illuminate\Support\Facades\View
      */
-
     public function delete_confirm()
     {
         return view('user.delete_confirm');
